@@ -132,13 +132,29 @@
             <div class="download-card">
                 <div class="version-info">
                     <span class="version-label">Latest Release</span>
-                    <span class="version-num" id="latest-version">v0.1</span>
+                    <span class="version-num" id="latest-version">--</span>
                 </div>
-                <a href="#" class="btn btn-lg" id="download-btn">Download for macOS</a>
+                <a href="https://github.com/RaemondBW/phonestage.app/releases/latest" class="btn btn-lg" id="download-btn">Download for macOS</a>
                 <p class="download-meta">Requires macOS 14 or later &middot; Apple Silicon &amp; Intel</p>
             </div>
         </div>
     </section>
+
+    <script>
+        // Fetch latest release from GitHub and update version badge + download link
+        fetch('https://api.github.com/repos/RaemondBW/phonestage.app/releases/latest')
+            .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+            .then(release => {
+                if (release.tag_name) {
+                    document.getElementById('latest-version').textContent = release.tag_name;
+                }
+                const dmg = release.assets && release.assets.find(a => a.name.endsWith('.dmg'));
+                if (dmg) {
+                    document.getElementById('download-btn').href = dmg.browser_download_url;
+                }
+            })
+            .catch(() => {});
+    </script>
 
     <!-- Footer -->
     <footer class="footer">
