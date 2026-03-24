@@ -81,14 +81,6 @@
                     <div class="plan-header">
                         <h3>Pro</h3>
                         <div class="plan-price">
-                            <!--
-                                TODO: Replace the checkout URLs below with your actual
-                                LemonSqueezy checkout links. Create products at:
-                                https://app.lemonsqueezy.com/products
-
-                                The URLs look like:
-                                https://YOURSTORE.lemonsqueezy.com/checkout/buy/VARIANT_ID
-                            -->
                             <span class="price" data-monthly="$9" data-yearly="$72">$9</span>
                             <span class="price-period" data-monthly="/month" data-yearly="/year">/month</span>
                         </div>
@@ -101,12 +93,9 @@
                         <li>Camera bubble overlay</li>
                         <li>Priority support</li>
                     </ul>
-                    <!-- LemonSqueezy overlay checkout links -->
                     <a
-                        href="https://YOURSTORE.lemonsqueezy.com/checkout/buy/MONTHLY_VARIANT_ID"
+                        href="https://phonestage.lemonsqueezy.com/checkout/buy/8502e194-bc43-4f5f-8d4c-ec6788773887"
                         class="btn btn-full lemonsqueezy-button"
-                        data-monthly-href="https://YOURSTORE.lemonsqueezy.com/checkout/buy/MONTHLY_VARIANT_ID"
-                        data-yearly-href="https://YOURSTORE.lemonsqueezy.com/checkout/buy/YEARLY_VARIANT_ID"
                     >
                         Subscribe
                     </a>
@@ -169,7 +158,8 @@
                 const period = btn.dataset.period;
                 if (priceEl) priceEl.textContent = priceEl.dataset[period];
                 if (periodEl) periodEl.textContent = periodEl.dataset[period];
-                if (checkoutBtn) checkoutBtn.href = checkoutBtn.dataset[period + 'Href'];
+                // TODO: swap checkout URL when separate monthly/yearly variants exist
+                // if (checkoutBtn) checkoutBtn.href = checkoutBtn.dataset[period + 'Href'];
             });
         });
     </script>
