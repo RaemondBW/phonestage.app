@@ -366,6 +366,11 @@ a { color: inherit; text-decoration: none; }
     margin: 0 auto;
 }
 
+.pricing-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 960px;
+}
+
 .plan-card {
     position: relative;
     background: var(--surface);
@@ -507,6 +512,6 @@ a { color: inherit; text-decoration: none; }
     .steps { grid-template-columns: 1fr 1fr; }
     .download-card { padding: 24px 20px; }
     .footer-inner { flex-direction: column; text-align: center; }
-    .pricing-grid { grid-template-columns: 1fr; }
+    .pricing-grid, .pricing-grid-3 { grid-template-columns: 1fr; }
     .faq-grid { grid-template-columns: 1fr; }
 }

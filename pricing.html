@@ -39,30 +39,24 @@
         <div class="container">
             <h1>Simple, transparent pricing</h1>
             <p class="hero-sub">
-                Try PhoneStage free with watermarked exports. Upgrade to Pro for clean, unlimited exports.
+                Start with a 7-day free trial. All features, no limits. Then choose the plan that works for you.
             </p>
-
-            <!-- Billing Toggle -->
-            <div class="billing-toggle">
-                <button class="toggle-btn active" data-period="monthly">Monthly</button>
-                <button class="toggle-btn" data-period="yearly">Yearly <span class="save-badge">Save 69%</span></button>
-            </div>
         </div>
     </section>
 
     <!-- Pricing Cards -->
     <section class="pricing-cards">
         <div class="container">
-            <div class="pricing-grid">
+            <div class="pricing-grid pricing-grid-3">
 
-                <!-- Free -->
+                <!-- Trial -->
                 <div class="plan-card">
                     <div class="plan-header">
-                        <h3>Free</h3>
+                        <h3>Trial</h3>
                         <div class="plan-price">
                             <span class="price">$0</span>
                         </div>
-                        <p class="plan-desc">Try everything, no account needed</p>
+                        <p class="plan-desc">7 days, all features included</p>
                     </div>
                     <ul class="plan-features">
                         <li>USB screen capture</li>
@@ -70,35 +64,58 @@
                         <li>Timeline editor</li>
                         <li>Auto-zoom</li>
                         <li>Device frames &amp; backgrounds</li>
-                        <li class="muted">Watermark on exports</li>
-                        <li class="muted">720p max export</li>
+                        <li>4K export</li>
+                        <li>Camera bubble overlay</li>
                     </ul>
-                    <a href="/#download" class="btn btn-outline btn-full">Download Free</a>
+                    <a href="/#download" class="btn btn-outline btn-full">Download</a>
                 </div>
 
-                <!-- Pro -->
-                <div class="plan-card plan-featured">
-                    <div class="plan-badge">Most Popular</div>
+                <!-- Monthly -->
+                <div class="plan-card">
                     <div class="plan-header">
-                        <h3>Pro</h3>
+                        <h3>Monthly</h3>
                         <div class="plan-price">
-                            <span class="price" data-monthly="$29" data-yearly="$108">$29</span>
-                            <span class="price-period" data-monthly="/month" data-yearly="/year">/month</span>
+                            <span class="price">$29</span>
+                            <span class="price-period">/month</span>
                         </div>
-                        <p class="plan-desc">Everything you need for polished demos</p>
+                        <p class="plan-desc">Flexible, cancel anytime</p>
                     </div>
                     <ul class="plan-features">
-                        <li>Everything in Free</li>
-                        <li><strong>No watermark</strong></li>
-                        <li><strong>4K export</strong></li>
+                        <li>Everything in Trial</li>
+                        <li>No watermark</li>
+                        <li>4K export</li>
                         <li>Camera bubble overlay</li>
                         <li>Priority support</li>
                     </ul>
                     <a
                         href="https://phonestage.lemonsqueezy.com/checkout/buy/9f37b816-ec6d-4b81-9e4f-2b0312b1bb7e"
+                        class="btn btn-outline btn-full lemonsqueezy-button"
+                    >
+                        Subscribe
+                    </a>
+                </div>
+
+                <!-- Annual -->
+                <div class="plan-card plan-featured">
+                    <div class="plan-badge">Save 69%</div>
+                    <div class="plan-header">
+                        <h3>Annual</h3>
+                        <div class="plan-price">
+                            <span class="price">$108</span>
+                            <span class="price-period">/year</span>
+                        </div>
+                        <p class="plan-desc">$9/month, billed annually</p>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Everything in Trial</li>
+                        <li>No watermark</li>
+                        <li>4K export</li>
+                        <li>Camera bubble overlay</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a
+                        href="https://phonestage.lemonsqueezy.com/checkout/buy/8502e194-bc43-4f5f-8d4c-ec6788773887"
                         class="btn btn-full lemonsqueezy-button"
-                        data-monthly-href="https://phonestage.lemonsqueezy.com/checkout/buy/9f37b816-ec6d-4b81-9e4f-2b0312b1bb7e"
-                        data-yearly-href="https://phonestage.lemonsqueezy.com/checkout/buy/8502e194-bc43-4f5f-8d4c-ec6788773887"
                     >
                         Subscribe
                     </a>
@@ -115,7 +132,7 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <h3>How does the free trial work?</h3>
-                    <p>Download and use all features immediately. Free exports include a small watermark and are limited to 720p. Upgrade anytime to remove those limits.</p>
+                    <p>Download PhoneStage and get 7 days of full access to every feature. No account or payment required. After the trial, subscribe to keep using Pro features.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Can I cancel anytime?</h3>
@@ -147,24 +164,6 @@
         </div>
     </footer>
 
-    <script>
-        // Billing toggle
-        const toggleBtns = document.querySelectorAll('.toggle-btn');
-        const priceEl = document.querySelector('.price[data-monthly]');
-        const periodEl = document.querySelector('.price-period');
-        const checkoutBtn = document.querySelector('.lemonsqueezy-button');
-
-        toggleBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                toggleBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const period = btn.dataset.period;
-                if (priceEl) priceEl.textContent = priceEl.dataset[period];
-                if (periodEl) periodEl.textContent = periodEl.dataset[period];
-                if (checkoutBtn) checkoutBtn.href = checkoutBtn.dataset[period + 'Href'];
-            });
-        });
-    </script>
 
 </body>
 </html>
