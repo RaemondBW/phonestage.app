@@ -94,8 +94,10 @@
                         <li>Priority support</li>
                     </ul>
                     <a
-                        href="https://phonestage.lemonsqueezy.com/checkout/buy/8502e194-bc43-4f5f-8d4c-ec6788773887"
+                        href="https://phonestage.lemonsqueezy.com/checkout/buy/9f37b816-ec6d-4b81-9e4f-2b0312b1bb7e"
                         class="btn btn-full lemonsqueezy-button"
+                        data-monthly-href="https://phonestage.lemonsqueezy.com/checkout/buy/9f37b816-ec6d-4b81-9e4f-2b0312b1bb7e"
+                        data-yearly-href="https://phonestage.lemonsqueezy.com/checkout/buy/8502e194-bc43-4f5f-8d4c-ec6788773887"
                     >
                         Subscribe
                     </a>
@@ -158,8 +160,7 @@
                 const period = btn.dataset.period;
                 if (priceEl) priceEl.textContent = priceEl.dataset[period];
                 if (periodEl) periodEl.textContent = periodEl.dataset[period];
-                // TODO: swap checkout URL when separate monthly/yearly variants exist
-                // if (checkoutBtn) checkoutBtn.href = checkoutBtn.dataset[period + 'Href'];
+                if (checkoutBtn) checkoutBtn.href = checkoutBtn.dataset[period + 'Href'];
             });
         });
     </script>
