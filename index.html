@@ -47,46 +47,131 @@
         </div>
     </section>
 
-    <!-- Feature Grid -->
+    <!-- Features -->
     <section id="features" class="features">
         <div class="container">
             <h2>Everything you need for a perfect demo</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>USB Screen Capture</h3>
-                    <p>Plug in your iPhone and record directly over USB. No AirPlay lag, no network drops, no iPhone Mirroring required.</p>
+
+            <div class="feature-showcase">
+                <!-- Video player -->
+                <div class="showcase-display">
+                    <video id="showcase-video" muted playsinline>
+                        <source src="demo.mp4" type="video/mp4">
+                    </video>
                 </div>
-                <div class="feature-card">
-                    <h3>Touch Visualization</h3>
-                    <p>Every tap, drag, and pinch is shown as a smooth halo overlay. Your audience sees exactly what you're doing.</p>
+
+                <!-- Feature description -->
+                <div class="showcase-caption">
+                    <h3 id="showcase-title">Connecting</h3>
+                    <p id="showcase-desc">Plug in your iPhone and PhoneStage detects it instantly over USB.</p>
                 </div>
-                <div class="feature-card">
-                    <h3>Auto-Zoom</h3>
-                    <p>Automatically generates zoom plans from your gestures, focusing the camera where the action happens.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Timeline Editor</h3>
-                    <p>Trim, cut, and arrange your clips. Speed segments let you fast-forward through the boring parts.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Device Frames</h3>
-                    <p>Wrap your video in a realistic iPhone bezel with rounded corners and shadows for a professional look.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Custom Backgrounds</h3>
-                    <p>Choose solid colors, gradients, or blur effects. Set the aspect ratio and padding to fit any platform.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Camera Bubble</h3>
-                    <p>Add a webcam overlay to put a face to your demo. Drag it anywhere on the canvas.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Metal Export</h3>
-                    <p>GPU-accelerated rendering composites all overlays into a crisp final video at full resolution.</p>
+
+                <!-- Timeline strip -->
+                <div class="showcase-timeline">
+                    <button class="showcase-clip active" data-start="0" data-end="3.54" data-title="Connecting" data-desc="Plug in your iPhone and PhoneStage detects it instantly over USB.">
+                        <div class="clip-bar"></div>
+                        <span>Connect</span>
+                    </button>
+                    <button class="showcase-clip" data-start="3.54" data-end="11.43" data-title="Camera Bubble" data-desc="Add a webcam overlay to put a face to your demo. Drag it anywhere on the canvas.">
+                        <div class="clip-bar"></div>
+                        <span>Camera</span>
+                    </button>
+                    <button class="showcase-clip" data-start="11.43" data-end="21.11" data-title="Touch Visualization" data-desc="Every tap, drag, and pinch is shown as a smooth halo overlay. Your audience sees exactly what you're doing.">
+                        <div class="clip-bar"></div>
+                        <span>Touches</span>
+                    </button>
+                    <button class="showcase-clip" data-start="21.11" data-end="43.23" data-title="Auto-Zoom" data-desc="Automatically zoom into interactions, focusing the camera where the action happens.">
+                        <div class="clip-bar"></div>
+                        <span>Zoom</span>
+                    </button>
+                    <button class="showcase-clip" data-start="43.23" data-end="66.5" data-title="Highlights" data-desc="Highlight UI elements with borders, magnification, and dimmed backgrounds.">
+                        <div class="clip-bar"></div>
+                        <span>Highlights</span>
+                    </button>
+                    <button class="showcase-clip" data-start="66.5" data-end="86.46" data-title="Export" data-desc="GPU-accelerated rendering composites all overlays into a crisp final video at full resolution.">
+                        <div class="clip-bar"></div>
+                        <span>Export</span>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+    (function() {
+        const clips = document.querySelectorAll('.showcase-clip');
+        const video = document.getElementById('showcase-video');
+        const titleEl = document.getElementById('showcase-title');
+        const descEl = document.getElementById('showcase-desc');
+        let current = 0;
+        let looping = false;
+        let ignoreTimeUpdate = false;
+
+        function setClipUI(index) {
+            current = index;
+            clips.forEach(c => c.classList.remove('active'));
+            clips[current].classList.add('active');
+            titleEl.textContent = clips[current].dataset.title;
+            descEl.textContent = clips[current].dataset.desc;
+        }
+
+        function playClip(index) {
+            ignoreTimeUpdate = true;
+            setClipUI(index);
+            const start = parseFloat(clips[current].dataset.start);
+            video.currentTime = start;
+            var playPromise = video.play();
+            if (playPromise) {
+                playPromise.then(function() {
+                    ignoreTimeUpdate = false;
+                }).catch(function() {
+                    ignoreTimeUpdate = false;
+                });
+            } else {
+                setTimeout(function() { ignoreTimeUpdate = false; }, 200);
+            }
+        }
+
+        // Poll-based boundary check (more reliable than timeupdate)
+        setInterval(function() {
+            if (ignoreTimeUpdate || video.paused) return;
+            const end = parseFloat(clips[current].dataset.end);
+            if (video.currentTime >= end - 0.15) {
+                if (looping) {
+                    playClip(current);
+                } else {
+                    playClip((current + 1) % clips.length);
+                }
+            }
+        }, 100);
+
+        // Single click: loop that section
+        clips.forEach((clip, i) => {
+            clip.addEventListener('click', () => {
+                looping = true;
+                playClip(i);
+            });
+        });
+
+        // Double-click: resume auto-advance
+        clips.forEach((clip, i) => {
+            clip.addEventListener('dblclick', () => {
+                looping = false;
+                playClip(i);
+            });
+        });
+
+        // Start when ready
+        if (video.readyState >= 3) {
+            playClip(0);
+        } else {
+            video.addEventListener('canplay', function onReady() {
+                video.removeEventListener('canplay', onReady);
+                playClip(0);
+            });
+        }
+    })();
+    </script>
 
     <!-- How It Works -->
     <section id="how-it-works" class="how-it-works">
